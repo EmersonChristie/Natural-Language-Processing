@@ -11,6 +11,7 @@ import math
 
 def get_freq(freqs, test_data):
     for sentence in test_data:
+        freqs["<STOP>"] += 1
         for word in sentence.split():
             if word in freqs:
                 freqs[word] += 1
@@ -70,25 +71,28 @@ def get_bi_model(bigram_count):
 
 if __name__ == '__main__':
 
-    with open('data/1b_benchmark.test.tokens') as my_file:
+    with open('data/1b_benchmark.train.tokens') as my_file:
         test_data = my_file.readlines()
 
     freqs = {
-        "UNK": 0
+        "UNK": 0,
+        "<STOP>": 0
     }
     get_freq(freqs, test_data)
     print('freqs\n', freqs)
-    bigram_count = get_bi_count(test_data)
-    print('bigram count\n', bigram_count)
+    print('len freqs\n', len(freqs))
 
-    bigram_model = get_bi_model(bigram_count)
+    # bigram_count = get_bi_count(test_data)
+    # print('bigram count\n', bigram_count)
 
-    print("bigram model: \n", bigram_model)
+    # bigram_model = get_bi_model(bigram_count)
 
-    total = 0
+    # print("bigram model: \n", bigram_model)
 
-    for key in bigram_model['Having']:
-        for k in key:
-            total += key[k]
+    # total = 0
 
-    print('total', total)
+    # for key in bigram_model['Having']:
+    #     for k in key:
+    #         total += key[k]
+
+    # print('total', total)
